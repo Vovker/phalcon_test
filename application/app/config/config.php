@@ -9,11 +9,12 @@ defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 
 return new \Phalcon\Config([
     'database' => [
-        'adapter'     => 'Mysql',
-        'host'        => 'localhost',
+        'adapter'     => 'mysql',
+        'host'        => 'mysql',
+        'port'        => '3306',
         'username'    => 'root',
-        'password'    => '',
-        'dbname'      => 'test',
+        'password'    => 'root',
+        'dbname'      => 'phalcon_app',
         'charset'     => 'utf8',
     ],
     'application' => [
@@ -26,5 +27,7 @@ return new \Phalcon\Config([
         'libraryDir'     => APP_PATH . '/library/',
         'cacheDir'       => BASE_PATH . '/cache/',
         'baseUri'        => '/',
+        'logInDb'        => true,
+        'exportDataFromTables' => []
     ]
 ]);

@@ -11,6 +11,10 @@
         }
     ],
     "require": {
-        "phalcon/devtools": "4.0.2"
+        "phalcon/devtools": "4.0.2",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phalcon/migrations": "^1.2"
     }
 }
