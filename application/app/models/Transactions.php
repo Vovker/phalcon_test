@@ -13,39 +13,39 @@ class Transactions extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     */
-    public $sender_account_id;
-
-    /**
-     *
      * @var string
      */
     public $details;
 
     /**
      *
+     * @var integer
+     */
+    public $sender_account_id;
+
+    /**
+     *
+     * @var integer
+     */
+    public $receiver_account;
+
+    /**
+     *
+     * @var integer
+     */
+    public $receiver_name;
+
+    /**
+     *
      * @var double
      */
-    public $sum;
+    public $charge_amount;
 
     /**
      *
      * @var double
      */
     public $total;
-
-    /**
-     *
-     * @var integer
-     */
-    public $receiver_account_id;
-
-    /**
-     *
-     * @var string
-     */
-    public $receiver_account_name;
 
     /**
      *
@@ -63,7 +63,19 @@ class Transactions extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $date;
+    public $created_at;
+
+    /**
+     *
+     * @var string
+     */
+    public $updated_at;
+
+    /**
+     *
+     * @var string
+     */
+    public $auth_token;
 
     /**
      * Initialize method for model.
@@ -72,9 +84,8 @@ class Transactions extends \Phalcon\Mvc\Model
     {
         $this->setSchema("phalcon_app");
         $this->setSource("transactions");
-        $this->hasMany('receiver_account_id', 'Phalcon\App\app\models\Users', 'id', ['alias' => 'Users']);
-        $this->belongsTo('sender_account_id', 'Phalcon\App\app\models\Users', 'id', ['alias' => 'Users']);
-        $this->belongsTo('provider_currencies_id', 'Phalcon\App\app\models\ProviderCurrencies', 'id', ['alias' => 'ProviderCurrencies']);
+        $this->hasMany('sender_account_id', '\Users', 'id', ['alias' => 'Users']);
+        $this->belongsTo('provider_currencies_id', '\ProviderCurrencies', 'id', ['alias' => 'ProviderCurrencies']);
     }
 
     /**
