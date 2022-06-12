@@ -6,9 +6,9 @@ use Phalcon\Db\Reference;
 use Phalcon\Migrations\Mvc\Model\Migration;
 
 /**
- * Class M1UsersMigration_100
+ * Class M3ProviderCurrenciesMigration_101
  */
-class M1UsersMigration_100 extends Migration
+class M3ProviderCurrenciesMigration_101 extends Migration
 {
     /**
      * Define the table structure
@@ -17,7 +17,7 @@ class M1UsersMigration_100 extends Migration
      */
     public function morph()
     {
-        $this->morphTable('users', [
+        $this->morphTable('provider_currencies', [
                 'columns' => [
                     new Column(
                         'id',
@@ -30,30 +30,44 @@ class M1UsersMigration_100 extends Migration
                         ]
                     ),
                     new Column(
-                        'name',
+                        'provider_id',
                         [
-                            'type' => Column::TYPE_VARCHAR,
+                            'type' => Column::TYPE_INTEGER,
                             'notNull' => true,
-                            'size' => 70,
+                            'size' => 1,
                             'after' => 'id'
                         ]
                     ),
                     new Column(
-                        'token',
+                        'currency',
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
-                            'size' => 256,
-                            'after' => 'name'
+                            'size' => 3,
+                            'after' => 'provider_id'
                         ]
                     )
                 ],
                 'indexes' => [
-                    new Index('PRIMARY', ['id'], 'PRIMARY')
+                    new Index('PRIMARY', ['id'], 'PRIMARY'),
+                    new Index('provider_id', ['provider_id'], '')
+                ],
+                'references' => [
+                    new Reference(
+                        'provider_currencies_ibfk_1',
+                        [
+                            'referencedTable' => 'providers',
+                            'referencedSchema' => 'phalcon_app',
+                            'columns' => ['provider_id'],
+                            'referencedColumns' => ['id'],
+                            'onUpdate' => 'CASCADE',
+                            'onDelete' => 'CASCADE'
+                        ]
+                    )
                 ],
                 'options' => [
                     'table_type' => 'BASE TABLE',
-                    'auto_increment' => '3',
+                    'auto_increment' => '5',
                     'engine' => 'InnoDB',
                     'table_collation' => 'utf8mb4_0900_ai_ci'
                 ],
@@ -68,29 +82,7 @@ class M1UsersMigration_100 extends Migration
      */
     public function up()
     {
-        self::$connection->insert(
-            'users',
-            [
-                'Test user 1',
-                '111111'
-            ],
-            [
-                'name',
-                'token'
-            ]
-        );
 
-        self::$connection->insert(
-            'users',
-            [
-                'Test user 2',
-                '222222'
-            ],
-            [
-                'name',
-                'token'
-            ]
-        );
     }
 
     /**

@@ -6,7 +6,7 @@ use Phalcon\Db\Reference;
 use Phalcon\Migrations\Mvc\Model\Migration;
 
 /**
- * Class ProvidersMigration_100
+ * Class M2ProvidersMigration_100
  */
 class M2ProvidersMigration_100 extends Migration
 {

@@ -6,9 +6,9 @@ use Phalcon\Db\Reference;
 use Phalcon\Migrations\Mvc\Model\Migration;
 
 /**
- * Class M1UsersMigration_100
+ * Class M1UsersMigration_101
  */
-class M1UsersMigration_100 extends Migration
+class M1UsersMigration_101 extends Migration
 {
     /**
      * Define the table structure
@@ -68,29 +68,7 @@ class M1UsersMigration_100 extends Migration
      */
     public function up()
     {
-        self::$connection->insert(
-            'users',
-            [
-                'Test user 1',
-                '111111'
-            ],
-            [
-                'name',
-                'token'
-            ]
-        );
 
-        self::$connection->insert(
-            'users',
-            [
-                'Test user 2',
-                '222222'
-            ],
-            [
-                'name',
-                'token'
-            ]
-        );
     }
 
     /**

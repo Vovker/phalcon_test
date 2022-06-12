@@ -6,9 +6,9 @@ use Phalcon\Db\Reference;
 use Phalcon\Migrations\Mvc\Model\Migration;
 
 /**
- * Class M4TransactionsMigration_100
+ * Class M4TransactionsMigration_101
  */
-class M4TransactionsMigration_100 extends Migration
+class M4TransactionsMigration_101 extends Migration
 {
     /**
      * Define the table structure
@@ -50,18 +50,18 @@ class M4TransactionsMigration_100 extends Migration
                     new Column(
                         'receiver_account',
                         [
-                            'type' => Column::TYPE_INTEGER,
+                            'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
-                            'size' => 1,
+                            'size' => 20,
                             'after' => 'sender_account_id'
                         ]
                     ),
                     new Column(
                         'receiver_name',
                         [
-                            'type' => Column::TYPE_INTEGER,
+                            'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
-                            'size' => 1,
+                            'size' => 70,
                             'after' => 'receiver_account'
                         ]
                     ),
