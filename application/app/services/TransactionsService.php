@@ -56,7 +56,9 @@ class TransactionsService extends AbstractService
             $transaction = new Transactions();
 
             $feeMultiplier = $this->feesCalculation($data->user_id);
-            $total = $data->amount * $feeMultiplier;
+            $total = (int)$data->amount * $feeMultiplier;
+
+            $this->checkLimitations($data->user_id, $currenciesProvider->id, $total, $feeMultiplier);
 
             $transaction->sender_account_id = $data->user_id;
             $transaction->details = $data->details;
@@ -117,8 +119,8 @@ class TransactionsService extends AbstractService
                 'details' => $transaction->details,
                 'receiver_account' => $transaction->receiver_account,
                 'receiver_name' => $transaction->receiver_name,
-                'amount' => $transaction->charge_amount,
-                'fee' => $transaction->total - $transaction->charge_amount,
+                'amount' => $transaction->charge_amount / 100,
+                'fee' => ($transaction->total - $transaction->charge_amount) / 100,
                 'status' => 'completed'
             ];
 
@@ -132,7 +134,7 @@ class TransactionsService extends AbstractService
         $totalCharge = Transactions::sum(
             [
                 'column' => 'charge_amount',
-                'conditions' => "sender_account_id = :user_id: AND DATE(created_at) >= :start_date: AND status != :status:",
+                'conditions' => 'sender_account_id = :user_id: AND DATE(created_at) >= :start_date: AND status != :status:',
                 'bind' => [
                     'user_id' => $userId,
                     'start_date' => date('Y-m-d H:i:s', time() - 3600*24),
@@ -141,7 +143,30 @@ class TransactionsService extends AbstractService
             ]
         );
 
-        return (int)$totalCharge >= 100 ? 1.05 : 1.1;
+        return (int)$totalCharge >= 10000 ? 1.05 : 1.1;
+    }
+
+    private function checkLimitations(int $userId, int $currencyId, $currentTransactionTotal, $feeMultiplier)
+    {
+        $totalCharges = Transactions::sum(
+          [
+              'column' => 'total',
+              'conditions' => 'sender_account_id = :user_id: and provider_currencies_id = :currency_id:',
+              'bind' => [
+                  'user_id' => $userId,
+                  'currency_id' => $currencyId
+              ]
+          ]
+        );
+
+        if($totalCharges / 100 >= 1000) {
+            throw new ServiceException('Exceeded max limit (1000) of charges for provided currency', 403);
+        }
+
+        if((int)($totalCharges + $currentTransactionTotal) / 100 > 1000) {
+            throw new ServiceException('Exceeded max limit (1000) of charges for provided currency, remaining limit - ' . (int)((100000 - $totalCharges) / 100 / $feeMultiplier), 403);
+        }
+
     }
 
 }

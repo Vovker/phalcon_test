@@ -30,6 +30,8 @@ class TransactionsController extends Controller
         $validation = new CreateTransactionValidator();
         $errors = $validation->validate($request);
 
+        $request->amount = (int)($request->amount*100);
+
         if($errors->count()){
             $exception = new Http400Exception(_('Body parameters validation error'), 400);
             throw $exception->addErrorDetails($errors->jsonSerialize());
