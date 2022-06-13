@@ -5,6 +5,11 @@
             "Phalcon\\App\\": "application/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+          "Tests\\": "application/app/tests/"
+        }
+    },
     "authors": [
         {
             "name": "uladzimir"
@@ -15,6 +20,8 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "phalcon/migrations": "^1.2"
+        "phalcon/migrations": "^1.2",
+        "phpunit/phpunit": "^9.0",
+        "phalcon/incubator-test": "^v1.0.0-alpha.1"
     }
 }

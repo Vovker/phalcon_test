@@ -9,7 +9,11 @@ use Phalcon\App\app\models\Users;
 
 class TransactionsService extends AbstractService
 {
+    //Fee multipliers
+    const OVER_LIMITED_FEE_MULTIPLIER = 1.05;
+    const UNDER_LIMITED_FEE_MULTIPLIER = 1.1;
 
+    //Transaction statuses
     const STATUS_PENDING = 0;
     const STATUS_COMPLETED = 1;
     const STATUS_FAILED = 2;
@@ -143,7 +147,7 @@ class TransactionsService extends AbstractService
             ]
         );
 
-        return (int)$totalCharge >= 10000 ? 1.05 : 1.1;
+        return (int)$totalCharge >= 10000 ? self::OVER_LIMITED_FEE_MULTIPLIER : self::UNDER_LIMITED_FEE_MULTIPLIER;
     }
 
     private function checkLimitations(int $userId, int $currencyId, $currentTransactionTotal, $feeMultiplier)
