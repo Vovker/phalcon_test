@@ -6,18 +6,18 @@ PHP My Admin - ```localhost:800``` credentials: root:root
 
 ## Project Description
 
-I've decided to use Phalcon as a framework for developments, because you're using it and if I'll fit you as a developer, anyway I should learn it in the fastest way, so in this case, it's start learning earlier :) 
-So I really like having a meet with new technologies and always open for new challenges :) 
+I decided to use Phalcon as a framework for developments, because you use it and if I'm developer fit to you, I should learn it the fastest way, so in this case, it's start learning earlier :) 
+So I really like to deal with new technologies and I'm always open for new challenges :) 
 
-I really don't like some cases of this app, for example:
+I don't like some cases of this app, for example:
 
-I'll prefer caching of MySql queries to check if user exceed hourly limitations of requests instead of make a request to the DB on each creation of transaction, if I had more time I'll realize it with cache 3600 sec lifetime and count it
+I'd prefer to cache MySql queries to check if the user exceeds the hourly limit of requests instead of sending a query to the DB on each creation of transaction, if I had more time I'd implement it with a cache lifetime of 3600 sec and count them
 
-Another question about DB structure, it was a bit strange for me to implement structure for separated block of the app, but it's only my preferences :)
+Another question about the DB structure, it was a bit weird for me to implement the structure for individual blocks of the app, but those are just my preferences :)
 
-So and the main problem that maybe will cause some old features used, because my last experience with PHP was 2 years ago, and I may forget smth
+So and the main problem that maybe some old features are used, because my last experience with PHP was 2 years ago, and I may forget something
 
-Anyway thanks for the task, it was interesting, and leave please feed back anyway  
+Anyway thanks for the task, it was interesting, and please leave feedback anyway  
 
 ## Project Installation
 
